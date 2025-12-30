@@ -1,15 +1,23 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 
-function App() {
-  return (
-    <div>
-      <h1 className="color">Hello, React!</h1>
-      <button onClick={() => alert("zayed is a coder")}>
-        press me bro
-      </button>
-    </div>
-  );
-}
+// React elements are not html emelements untill they are not rendered
+//  React.createElement  ==> react element which is a js obeject and after rednereing --> it bcms html element aftr render
 
-createRoot(document.getElementById("root")).render(<App />);
+const heading = React.createElement("h1", { id: "heading" }, " Hello from React! ");
+console.log(heading, "zayed")
+
+// jsx -- its not html written inside jsx its not its html,xml like syntax  jsx is not inside react its different
+
+
+//jsx-->React.createElement  ==> react element which is a js obeject and after rednereing --> it bcms html element aftr render
+//so at the jsx is itself an react element  but not html inside js
+// babel trapiles our code so that it can be understood by the browser, its a super power package managed by parcel;
+const JSXheading = <h1>Hello from JSX!</h1>;
+console.log(JSXheading, "jsx zayed")
+
+
+
+// now im rendereing it hwo /
+const root = createRoot(document.getElementById("root"));
+root.render(JSXheading);
