@@ -16,11 +16,22 @@ console.log(heading, "zayed")
 const JSXheading = () => <h1>Hello from JSX!</h1>;
 console.log(JSXheading, "jsx zayed")
 
+// i can also make these elemenets also inside my functinal components  by using {} when i add this i can write any js excpersiion inside
+
+ const number = 1000;
+
+
+
+
 
 // functional components are nothing bus normal fuctins returing jsx elements/ react elements
 
  const FunctionalComponent = () => (
   <div id="container">
+    {/* this is how i can use react elements */}
+    {heading}
+    <h2>{number}</h2>
+    {/* <h2>{100 + 2200}</h2> //even i can write expressions here */}
    <JSXheading />
     <h1> React functional component </h1>
     </div>
