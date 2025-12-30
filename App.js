@@ -13,11 +13,21 @@ console.log(heading, "zayed")
 //jsx-->React.createElement  ==> react element which is a js obeject and after rednereing --> it bcms html element aftr render
 //so at the jsx is itself an react element  but not html inside js
 // babel trapiles our code so that it can be understood by the browser, its a super power package managed by parcel;
-const JSXheading = <h1>Hello from JSX!</h1>;
+const JSXheading = () => <h1>Hello from JSX!</h1>;
 console.log(JSXheading, "jsx zayed")
 
 
+// functional components are nothing bus normal fuctins returing jsx elements/ react elements
+
+ const FunctionalComponent = () => (
+  <div id="container">
+   <JSXheading />
+    <h1> React functional component </h1>
+    </div>
+ )
+
+ 
 
 // now im rendereing it hwo /
 const root = createRoot(document.getElementById("root"));
-root.render(JSXheading);
+root.render(<FunctionalComponent />);
