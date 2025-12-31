@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RestaurantCard from "./RestaurantCard";
 import { resList } from "../utils/mockdata";
 
@@ -42,6 +42,24 @@ import { resList } from "../utils/mockdata";
 // ];
 const Body = () => {
     const [ListOfRes, setListOfRes] = useState(resList);
+    // useeffect is also hook which basically used to run after the ui is rendered i mean after the ui is rendered this will execute it takes two thing callback and a dependency array
+//  useEffect(()=> {
+//     console.log("useEffect called");
+//  }, [])
+// console.log("body rendered");
+ useEffect (()=> {
+    fetchData();
+ },[]);
+  
+
+ const fetchData = async () =>{
+    // API call
+    const data =  await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9352403&lng=77.624532&collection=83639&tags=layout_CCS_Biryani&sortBy=&filters=&type=rcv2&offset=0&page_type=null");
+    // data kaise ayegan json me so 
+     const json =  await data.json();
+     console.log(json);
+ }
+
   return (
     <div className="body">
       <div className="search-container">
