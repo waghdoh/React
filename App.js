@@ -40,13 +40,16 @@ const RestaurantCard = ({resData}) => {
     
     return (
         <div className="res-card">
+        
             <img
-                src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/1154cffac2453eb0bf7fdda7e5ea1659"
+                src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" + resData.card.card.info.cloudinaryImageId}
+                //image ko bhi waha se utaya and concatenate kiya hai 
                 alt="restaurant"
                 className="res-img"
             />
             <h3 className="res-name">{resData.card.card.info.name}</h3>
             <p className="res-cuisine">{resData.card.card.info.cuisines.join(", ")}</p>
+            <p className="res-locality">{resData.card.card.info.locality}</p>
             <div className="res-info">
                 <span className="res-rating">
                     <span>★</span> {resData.card.card.info.avgRating}
@@ -59,7 +62,7 @@ const RestaurantCard = ({resData}) => {
         </div>
     );
 };
- const resObj = [
+ const resList = [
     {
         "card": {
           "card": {
@@ -818,10 +821,17 @@ const Body = () => {
                 />
                 <button className="search-btn">Search</button>
             </div>
+            {/* o,1 karke bahut zyada hojate but nstead we could loop it */}
             <div className="res-container">
-                <RestaurantCard  resData ={resObj[0]} />
-                <RestaurantCard  resData ={resObj[1]} />
-            </div>
+                
+                {/* <RestaurantCard  resData ={resList[0]} />
+                <RestaurantCard  resData ={resList[1]} /> */}
+                {/* "ill use map function to loop it" */}
+                {/* {not using key is (not acceptable) <<< use index as key <<<<<<<<<<<<< use unique key always} */}
+                {resList.map((restaurant) => (
+                    <RestaurantCard key={restaurant.card.card.info.id} resData = {restaurant} />
+                ))}
+           </div>
         </div>
     );
 };
