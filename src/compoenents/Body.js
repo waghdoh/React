@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import RestaurantCard from "./RestaurantCard";
-import { resList } from "../utils/mockdata";
+import Shimmer from "./Shimmer";
 
 
 
@@ -41,24 +41,29 @@ import { resList } from "../utils/mockdata";
 //   },
 // ];
 const Body = () => {
-    const [ListOfRes, setListOfRes] = useState(resList);
-    // useeffect is also hook which basically used to run after the ui is rendered i mean after the ui is rendered this will execute it takes two thing callback and a dependency array
-//  useEffect(()=> {
-//     console.log("useEffect called");
-//  }, [])
-// console.log("body rendered");
- useEffect (()=> {
+  const [ListOfRes, setListOfRes] = useState([]);
+  // useeffect is also hook which basically used to run after the ui is rendered i mean after the ui is rendered this will execute it takes two thing callback and a dependency array
+  //  useEffect(()=> {
+  //     console.log("useEffect called");
+  //  }, [])
+  // console.log("body rendered");
+  useEffect(() => {
     fetchData();
- },[]);
-  
+  }, []);
 
- const fetchData = async () =>{
+
+  const fetchData = async () => {
     // API call
-    const data =  await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9352403&lng=77.624532&collection=83639&tags=layout_CCS_Biryani&sortBy=&filters=&type=rcv2&offset=0&page_type=null");
+    const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9352403&lng=77.624532&collection=83639&tags=layout_CCS_Biryani&sortBy=&filters=&type=rcv2&offset=0&page_type=null");
     // data kaise ayegan json me so 
-     const json =  await data.json();
-     console.log(json);
- }
+    const json = await data.json();
+    console.log(json);
+    setListOfRes(json?.data?.cards?.filter(c => c?.card?.card?.info) || []);
+  }
+
+  if (ListOfRes.length === 0) {
+    return <Shimmer />;
+  }
 
   return (
     <div className="body">
@@ -74,26 +79,24 @@ const Body = () => {
       <div className="filter-btn ">
         <button
           className="search-btn"
-        //   onClick={() => {
-        //     console.log("Button");
-        //   }}
-        // onClick={() => {
-        //     ListOfRes = ListOfRes.filter((res) => res.card.card.info.avgRating > 4);
-        //     console.log(ListOfRes);
-        // }}
-        onClick={() => {
-            // ListOfRes = ListOfRes.filter((res) => res.card.card.info.avgRating > 4);
-            // console.log(ListOfRes);
-         const FilterData = resList.filter((res) => res.card.card.info.avgRating > 4.2);
-         console.log(FilterData);
-         setListOfRes(FilterData);
-        }}
-        
-        
+          //   onClick={() => {
+          //     console.log("Button");
+          //   }}
+          // onClick={() => {
+          //     ListOfRes = ListOfRes.filter((res) => res.card.card.info.avgRating > 4);
+          //     console.log(ListOfRes);
+          // }}
+          onClick={() => {
+            const FilterData = (ListOfRes || []).filter((res) => res.card.card.info.avgRating > 4.2);
+            console.log(FilterData);
+            setListOfRes(FilterData);
+          }}
+
+
         >
           Top Rated Restaurant
         </button>
-        
+
       </div>
       {/* o,1 karke bahut zyada hojate but nstead we could loop it */}
       <div className="res-container">
@@ -101,7 +104,7 @@ const Body = () => {
                 <RestaurantCard  resData ={resList[1]} /> */}
         {/* "ill use map function to loop it" */}
         {/* {not using key is (not acceptable) <<< use index as key <<<<<<<<<<<<< use unique key always} */}
-        {ListOfRes.map((restaurant) => (
+        {ListOfRes?.map((restaurant) => (
           <RestaurantCard
             key={restaurant.card.card.info.id}
             resData={restaurant}
