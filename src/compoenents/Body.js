@@ -42,6 +42,8 @@ import Shimmer from "./Shimmer";
 // ];
 const Body = () => {
   const [ListOfRes, setListOfRes] = useState([]);
+  const [FilteredData, setFilteredData] = useState([]);
+  const [Searchedtext, setSearchedtext] = useState("");
   // useeffect is also hook which basically used to run after the ui is rendered i mean after the ui is rendered this will execute it takes two thing callback and a dependency array
   //  useEffect(()=> {
   //     console.log("useEffect called");
@@ -59,6 +61,7 @@ const Body = () => {
     const json = await data.json();
     console.log(json);
     setListOfRes(json?.data?.cards?.filter(c => c?.card?.card?.info) || []);
+    setFilteredData(json?.data?.cards?.filter(c => c?.card?.card?.info) || []);
   }
 
   if (ListOfRes.length === 0) {
@@ -72,8 +75,19 @@ const Body = () => {
           type="text"
           placeholder="Search for restaurants and food"
           className="input-type"
+          value={Searchedtext}
+          onChange={(e) => {
+            setSearchedtext(e.target.value);
+
+          }}
         />
-        <button className="search-btn">Search</button>
+        <button className="search-btn"
+          onClick={() => {
+            const filteredData = ListOfRes.filter((res) =>
+              res.card.card.info.name.toLowerCase().includes(Searchedtext.toLowerCase())
+            );
+            setFilteredData(filteredData);
+          }}>Search</button>
       </div>
       {/* filter for top rated res */}
       <div className="filter-btn ">
@@ -89,7 +103,7 @@ const Body = () => {
           onClick={() => {
             const FilterData = (ListOfRes || []).filter((res) => res.card.card.info.avgRating > 4.2);
             console.log(FilterData);
-            setListOfRes(FilterData);
+            setFilteredData(FilterData);
           }}
 
 
@@ -104,7 +118,7 @@ const Body = () => {
                 <RestaurantCard  resData ={resList[1]} /> */}
         {/* "ill use map function to loop it" */}
         {/* {not using key is (not acceptable) <<< use index as key <<<<<<<<<<<<< use unique key always} */}
-        {ListOfRes?.map((restaurant) => (
+        {FilteredData?.map((restaurant) => (
           <RestaurantCard
             key={restaurant.card.card.info.id}
             resData={restaurant}
