@@ -35,8 +35,8 @@ const Header = () => {
         </div>
     );
 };
-
-const RestaurantCard = () => {
+// props: passing data dynamically to components usig props and here we destructured the props and used it
+const RestaurantCard = ({resName, cuisine, rating, arrival}) => {
     return (
         <div className="res-card">
             <img
@@ -44,14 +44,14 @@ const RestaurantCard = () => {
                 alt="restaurant"
                 className="res-img"
             />
-            <h3 className="res-name">Meghana Foods</h3>
-            <p className="res-cuisine">Biryani, North Indian, Asian</p>
+            <h3 className="res-name">{resName}</h3>
+            <p className="res-cuisine">{cuisine}</p>
             <div className="res-info">
                 <span className="res-rating">
-                    <span>★</span> 4.4
+                    <span>★</span> {rating}
                 </span>
                 <span>•</span>
-                <span>38 MINS</span>
+                <span>{arrival}</span>
                 <span>•</span>
                 <span>₹500 FOR TWO</span>
             </div>
@@ -71,14 +71,9 @@ const Body = () => {
                 <button className="search-btn">Search</button>
             </div>
             <div className="res-container">
-                <RestaurantCard />
-                <RestaurantCard />
-                <RestaurantCard />
-                <RestaurantCard />
-                <RestaurantCard />
-                <RestaurantCard />
-                <RestaurantCard />
-                <RestaurantCard />
+                <RestaurantCard resName= "Meghana Foods"  cuisine= "Biryani, North Indian, Asian" rating= {4.4} arrival= "30 mins" />
+                <RestaurantCard resName= "Paradise Biryani" cuisine= "Biryani, North Indian" rating= {4.5} arrival= "25 mins" />
+                <RestaurantCard resName= "Biryani Blues" cuisine= "Biryani, South Indian" rating= {4.2} arrival= "35 mins" />
             </div>
         </div>
     );
