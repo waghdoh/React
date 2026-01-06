@@ -3,12 +3,18 @@ import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useListofRestaurants from "../utils/useListofRestaurant";
+import useOnOffLineStatus from "../utils/useOnOffLineStatus";
 
 const Body = () => {
 
   const [Searchedtext, setSearchedtext] = useState("");
 
   const { ListOfRes, FilteredData } = useListofRestaurants();
+
+  const onOfflineStatus = useOnOffLineStatus();
+  if(onOfflineStatus === false) {
+    return <div className="offline">You are offline</div>;
+  }
 
   if (ListOfRes.length === 0) {
     return <Shimmer />;
