@@ -22,6 +22,7 @@ const Header = () => {
                     <li><Link to="/about"><i className="fa-solid fa-circle-info"></i> About</Link></li>
                     <li><Link to="/contact"><i className="fa-solid fa-phone"></i> Contact</Link></li>
                     <li><i className="fa-solid fa-cart-shopping"></i> Cart</li>
+                    <li><Link to="/groceries"><i className="fa-solid fa-basket-shopping"></i> Groceries</Link></li>
                     <li><i className="fa-solid fa-user"></i> Login</li>
                 </ul>
             </div>
