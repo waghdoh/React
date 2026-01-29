@@ -4,6 +4,7 @@ import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useListofRestaurants from "../utils/useListofRestaurant";
 import useOnOffLineStatus from "../utils/useOnOffLineStatus";
+import { WithLabelPromoted } from "./RestaurantCard";
 
 const Body = () => {
 
@@ -19,7 +20,8 @@ const Body = () => {
   if (ListOfRes.length === 0) {
     return <Shimmer />;
   }
-
+  const RestaurantCardWithLabel = WithLabelPromoted(RestaurantCard);
+  console.log(ListOfRes,"zaued");
   return (
     <div className="body">
       <div className="search-container">
@@ -60,7 +62,7 @@ const Body = () => {
             to={"/restaurant/" + restaurant.card.card.info.id}
             className="res-card-link"
           >
-            <RestaurantCard resData={restaurant} />
+            {restaurant.card.card.info.promoted ? (<RestaurantCardWithLabel resData={restaurant} /> ): (<RestaurantCard resData={restaurant} />)}
           </Link>
         ))}
       </div>
